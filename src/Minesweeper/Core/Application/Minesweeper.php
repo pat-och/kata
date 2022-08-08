@@ -7,6 +7,8 @@ class Minesweeper
 {
     public function __invoke(string $grid): string
     {
+        if ($grid === '.') return '0';
+
         return $grid;
     }
 }
