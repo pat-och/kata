@@ -11,13 +11,18 @@ class Minesweeper
         $firstRow = str_split($grid);
 
         if ($grid === '0*') {
-            return $firstRow[0] + 1 . $firstRow[1];
+            return $this->increaseCellContent($firstRow[0]) . $firstRow[1];
         }
 
         if ($grid === '*0') {
-            return $firstRow[0] . $firstRow[1] + 1;
+            return $firstRow[0] . $this->increaseCellContent($firstRow[1]);
         }
 
         return $grid;
+    }
+
+    private function increaseCellContent(int $cellValue): int
+    {
+        return $cellValue + 1;
     }
 }
