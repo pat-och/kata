@@ -15,3 +15,5 @@ Example output (for the above input)
 *211
 12*1
 0111
+
+https://en.wikipedia.org/wiki/Minesweeper_(video_game)
