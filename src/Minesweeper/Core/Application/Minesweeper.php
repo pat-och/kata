@@ -16,13 +16,14 @@ class Minesweeper
             $leftCell = new Cell($firstRow[0], 0);
             $rightCell = new Cell($firstRow[1], 1);
             $cells = [$leftCell, $rightCell];
-            $grid = $this->increaseCellContent($leftCell->value) . $this->increaseCellContent($rightCell->value);
+            $grid = $this->increaseCellContent($cells[0]->value) . $this->increaseCellContent($cells[1]->value);
         }
 
         if ($grid === '*0') {
             $leftCell = new Cell($firstRow[0], 0);
             $rightCell = new Cell($firstRow[1], 1);
-            $grid = $this->increaseCellContent($leftCell->value) . $this->increaseCellContent($rightCell->value);
+            $cells = [$leftCell, $rightCell];
+            $grid = $this->increaseCellContent($cells[0]->value) . $this->increaseCellContent($cells[1]->value);
         }
 
         return $grid;
