@@ -39,6 +39,7 @@ class MinesweeperTest extends TestCase
             ['one row of two cells full of mines', '**', '**'],
             ['one row of two empty cells', '..', '00'],
             ['one row of two cells with mine in the first one', '*.', '*1'],
+            ['one row of two cells with mine in the last one', '.*', '1*'],
         ];
     }
 
