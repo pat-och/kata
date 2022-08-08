@@ -17,40 +17,33 @@ class MinesweeperTest extends TestCase
         $this->minesweeper = new Minesweeper();
     }
 
-    /** @test */
-    public function shouldComputeGridWithNoCell()
+    /**
+     * @test
+     * @dataProvider cases
+     */
+    public function ShouldComputeMinesweeperGrid(
+        string $case,
+        string $input,
+        string $expected,
+    )
     {
-        $this->assertEquals('', $this->resolve(''));
+        $this->assertEquals($expected, $this->resolve($input), $case);
     }
 
-    /** @test */
-    public function shouldComputeGridWithOneCellWithMine()
+    private function cases(): array
     {
-        $this->assertEquals('*', $this->resolve('*'));
-    }
-
-
-    /** @test */
-    public function shouldComputeGridWithOneEmptyCell()
-    {
-        $this->assertEquals('0', $this->resolve('.'));
+        return [
+            ['no cells', '', ''],
+            ['one cell with mine', '*', '*'],
+            ['one empty cell', '.', '0'],
+            ['one row of two cells full of mines', '**', '**'],
+            ['one row of two empty cells', '..', '00'],
+        ];
     }
 
     private function resolve(string $grid): string
     {
         return ($this->minesweeper)($grid);
-    }
-
-    /** @test */
-    public function shouldComputeGridWithOneRowOfTwoCellsFullOfMines()
-    {
-        $this->assertEquals('**', $this->resolve('**'));
-    }
-
-    /** @test */
-    public function shouldComputeGridWithOneRowOfTwoEmptyCells()
-    {
-        $this->assertEquals('00', $this->resolve('..'));
     }
 }
 
