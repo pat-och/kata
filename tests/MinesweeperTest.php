@@ -18,7 +18,7 @@ class MinesweeperTest extends TestCase
     }
 
     /** @test */
-    public function shouldComputeAnEmptyGrid()
+    public function shouldComputeNoCellGrid()
     {
         $this->assertEquals('', $this->resolve(''));
     }
