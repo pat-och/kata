@@ -20,20 +20,25 @@ class MinesweeperTest extends TestCase
     /** @test */
     public function shouldComputeAnEmptyGrid()
     {
-        $this->assertEquals('', ($this->minesweeper)(''));
+        $this->assertEquals('', $this->resolve(''));
     }
 
     /** @test */
     public function shouldComputeOneCellGridWithMine()
     {
-        $this->assertEquals('*', ($this->minesweeper)('*'));
+        $this->assertEquals('*', $this->resolve('*'));
     }
 
 
     /** @test */
     public function shouldComputeOneEmptyCellGrid()
     {
-        $this->assertEquals('0', ($this->minesweeper)('.'));
+        $this->assertEquals('0', $this->resolve('.'));
+    }
+
+    private function resolve(string $grid): string
+    {
+        return ($this->minesweeper)($grid);
     }
 }
 
