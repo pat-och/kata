@@ -9,6 +9,10 @@ use PHPUnit\Framework\TestCase;
 
 class MinesweeperTest extends TestCase
 {
-
+    /** @test */
+    public function shouldComputeAnEmptyGrid()
+    {
+        $this->assertTrue('' === $minesweeper(''));
+    }
 }
 
