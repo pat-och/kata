@@ -10,26 +10,30 @@ use PHPUnit\Framework\TestCase;
 
 class MinesweeperTest extends TestCase
 {
+    private Minesweeper $minesweeper;
+
+    protected function setUp(): void
+    {
+        $this->minesweeper = new Minesweeper();
+    }
+
     /** @test */
     public function shouldComputeAnEmptyGrid()
     {
-        $minesweeper = new Minesweeper();
-        $this->assertEquals('', $minesweeper(''));
+        $this->assertEquals('', ($this->minesweeper)(''));
     }
 
     /** @test */
     public function shouldComputeOneCellGridWithMine()
     {
-        $minesweeper = new Minesweeper();
-        $this->assertEquals('*', $minesweeper('*'));
+        $this->assertEquals('*', ($this->minesweeper)('*'));
     }
 
 
     /** @test */
     public function shouldComputeOneEmptyCellGrid()
     {
-        $minesweeper = new Minesweeper();
-        $this->assertEquals('0', $minesweeper('.'));
+        $this->assertEquals('0', ($this->minesweeper)('.'));
     }
 }
 
