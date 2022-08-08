@@ -25,8 +25,7 @@ class MinesweeperTest extends TestCase
         string $case,
         string $input,
         string $expected,
-    )
-    {
+    ) {
         $this->assertEquals($expected, $this->resolve($input), $case);
     }
 
