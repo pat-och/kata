@@ -15,7 +15,7 @@ class Minesweeper
         if ($grid === '0*') {
             $leftCell = new Cell($firstRow[0], 0);
             $rightCell = new Cell($firstRow[1], 1);
-            $cells = [$leftCell, $rightCell];
+            $cells = $this->getCells($leftCell, $rightCell);
             $grid = $this->increaseCellContent($cells[0]->value) . $this->increaseCellContent($cells[1]->value);
         }
 
@@ -33,5 +33,10 @@ class Minesweeper
     {
         if ($cellValue === '*') return $cellValue;
         return $cellValue + 1;
+    }
+
+    private function getCells(Cell $leftCell, Cell $rightCell): array
+    {
+        return [$leftCell, $rightCell];
     }
 }
