@@ -3,6 +3,8 @@
 
 namespace App\Minesweeper\Core\Application;
 
+use App\Minesweeper\Core\Domain\Cell;
+
 class Minesweeper
 {
     public function __invoke(string $grid): string
@@ -13,6 +15,7 @@ class Minesweeper
         if ($grid === '0*') {
             $leftCellValue = $firstRow[0];
             $rightCellValue = $firstRow[1];
+            $leftCell = new Cell($firstRow[0], 0);
             $grid = $this->increaseCellContent($leftCellValue) . $this->increaseCellContent($rightCellValue);
         }
 
