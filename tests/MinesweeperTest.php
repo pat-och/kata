@@ -18,20 +18,20 @@ class MinesweeperTest extends TestCase
     }
 
     /** @test */
-    public function shouldComputeNoCellGrid()
+    public function shouldComputeGridWithNoCell()
     {
         $this->assertEquals('', $this->resolve(''));
     }
 
     /** @test */
-    public function shouldComputeOneCellGridWithMine()
+    public function shouldComputeGridWithOneCellWithMine()
     {
         $this->assertEquals('*', $this->resolve('*'));
     }
 
 
     /** @test */
-    public function shouldComputeOneEmptyCellGrid()
+    public function shouldComputeGridWithOneEmptyCell()
     {
         $this->assertEquals('0', $this->resolve('.'));
     }
@@ -42,13 +42,13 @@ class MinesweeperTest extends TestCase
     }
 
     /** @test */
-    public function shouldComputeOneRowOfTwoCellsGridFullOfMines()
+    public function shouldComputeGridWithOneRowOfTwoCellsFullOfMines()
     {
         $this->assertEquals('**', $this->resolve('**'));
     }
 
     /** @test */
-    public function shouldComputeOneRowOfTwoEmptyCellsGrid()
+    public function shouldComputeGridWithOneRowOfTwoEmptyCells()
     {
         $this->assertEquals('00', $this->resolve('..'));
     }
