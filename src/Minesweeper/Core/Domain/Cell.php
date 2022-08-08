@@ -6,7 +6,7 @@ namespace App\Minesweeper\Core\Domain;
 class Cell
 {
     public function __construct(
-        private mixed $value,
+        public mixed $value,
         private int $rowIndex
     ) {
     }

@@ -16,7 +16,7 @@ class Minesweeper
             $leftCellValue = $firstRow[0];
             $rightCellValue = $firstRow[1];
             $leftCell = new Cell($firstRow[0], 0);
-            $grid = $this->increaseCellContent($leftCellValue) . $this->increaseCellContent($rightCellValue);
+            $grid = $this->increaseCellContent($leftCell->value) . $this->increaseCellContent($rightCellValue);
         }
 
         if ($grid === '*0') {
