@@ -16,5 +16,12 @@ class MinesweeperTest extends TestCase
         $minesweeper = new Minesweeper();
         $this->assertEquals('', $minesweeper(''));
     }
+
+    /** @test */
+    public function shouldComputeOneCellGridWithMine()
+    {
+        $minesweeper = new Minesweeper();
+        $this->assertEquals('*', $minesweeper('*'));
+    }
 }
 
