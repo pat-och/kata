@@ -21,8 +21,9 @@ class Minesweeper
         return $grid;
     }
 
-    private function increaseCellContent(string|int $cellValue): int
+    private function increaseCellContent(string|int $cellValue): string|int
     {
+        if ($cellValue === '*') return '*';
         return $cellValue + 1;
     }
 }
