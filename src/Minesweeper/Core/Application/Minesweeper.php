@@ -23,7 +23,7 @@ class Minesweeper
 
     private function increaseCellContent(string|int $cellValue): string|int
     {
-        if ($cellValue === '*') return '*';
+        if ($cellValue === '*') return $cellValue;
         return $cellValue + 1;
     }
 }
