@@ -11,11 +11,11 @@ class Minesweeper
         $firstRow = str_split($grid);
 
         if ($grid === '0*') {
-            return '1' . $firstRow[1];
+            return $firstRow[0] + 1 . $firstRow[1];
         }
 
         if ($grid === '*0') {
-            return $firstRow[0] . '1';
+            return $firstRow[0] . $firstRow[1] + 1;
         }
 
         return $grid;
