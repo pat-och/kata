@@ -14,7 +14,7 @@ class MinesweeperTest extends TestCase
     public function shouldComputeAnEmptyGrid()
     {
         $minesweeper = new Minesweeper();
-        $this->assertTrue('' === $minesweeper(''));
+        $this->assertEquals('', $minesweeper(''));
     }
 }
 
