@@ -13,12 +13,12 @@ class Minesweeper
         $firstRow = str_split($grid);
 
         if ($grid === '0*') {
-            $cells = $this->getCells(new Cell($firstRow[0], 0), new Cell($firstRow[1], 1), $firstRow);
+            $cells = $this->getCells($firstRow);
             $grid = $this->increaseCellContent($cells[0]->value) . $this->increaseCellContent($cells[1]->value);
         }
 
         if ($grid === '*0') {
-            $cells = $this->getCells(new Cell($firstRow[0], 0), new Cell($firstRow[1], 1), $firstRow);
+            $cells = $this->getCells($firstRow);
             $grid = $this->increaseCellContent($cells[0]->value) . $this->increaseCellContent($cells[1]->value);
         }
 
@@ -31,7 +31,7 @@ class Minesweeper
         return $cellValue + 1;
     }
 
-    private function getCells(Cell $leftCell, Cell $rightCell, array $row): array
+    private function getCells(array $row): array
     {
         $cells = [];
 
