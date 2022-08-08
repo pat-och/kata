@@ -42,14 +42,13 @@ class MinesweeperTest extends TestCase
     }
 
     /** @test */
-    public function shouldComputeOneRowOfTwoCellGridFullOfMines()
+    public function shouldComputeOneRowOfTwoCellsGridFullOfMines()
     {
         $this->assertEquals('**', $this->resolve('**'));
     }
 
-
     /** @test */
-    public function shouldComputeOneRowOfTwoCellGridWithNoMines()
+    public function shouldComputeOneRowOfTwoEmptyCellsGrid()
     {
         $this->assertEquals('00', $this->resolve('..'));
     }
