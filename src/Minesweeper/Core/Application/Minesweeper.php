@@ -15,7 +15,7 @@ class Minesweeper
         }
 
         if ($grid === '*0') {
-            return $firstRow[0] . $this->increaseCellContent($firstRow[1]);
+            return $this->increaseCellContent($firstRow[0]) . $this->increaseCellContent($firstRow[1]);
         }
 
         return $grid;
