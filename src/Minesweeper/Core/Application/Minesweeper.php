@@ -5,4 +5,7 @@ namespace App\Minesweeper\Core\Application;
 
 class Minesweeper
 {
+    public function __invoke()
+    {
+    }
 }
