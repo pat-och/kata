@@ -11,14 +11,13 @@ class Minesweeper
     {
         $grid = str_replace('.', '0', $grid);
         $firstRow = str_split($grid);
+        $cells = $this->getCells($firstRow);
 
         if ($grid === '0*') {
-            $cells = $this->getCells($firstRow);
             $grid = $this->increaseCellContent($cells[0]->value) . $this->increaseCellContent($cells[1]->value);
         }
 
         if ($grid === '*0') {
-            $cells = $this->getCells($firstRow);
             $grid = $this->increaseCellContent($cells[0]->value) . $this->increaseCellContent($cells[1]->value);
         }
 
