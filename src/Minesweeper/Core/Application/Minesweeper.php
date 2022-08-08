@@ -5,8 +5,8 @@ namespace App\Minesweeper\Core\Application;
 
 class Minesweeper
 {
-    public function __invoke(): string
+    public function __invoke(string $grid): string
     {
-        return '';
+        return $grid;
     }
 }
