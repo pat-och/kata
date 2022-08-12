@@ -10,4 +10,9 @@ class Cell
         private int $rowIndex
     ) {
     }
+
+    public function isMine(): bool
+    {
+        return $this->value === '*';
+    }
 }

@@ -91,7 +91,7 @@ class Minesweeper
     {
         $cell = $this->cells[$cellIndex];
 
-        if ($cell->value === '*')
+        if ($cell->isMine())
             return $cell->value;
 
         return $cell->value + 1;
