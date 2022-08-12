@@ -17,7 +17,7 @@ class Minesweeper
 
     public function handle(): string
     {
-        $this->grid = str_replace('.', '0', $this->grid);
+        $this->replaceDotByZeroInGrid();
         $firstRow = str_split($this->grid);
 
         $this->cells = $this->buildCells($firstRow);
@@ -106,5 +106,10 @@ class Minesweeper
         }
 
         return $cells;
+    }
+
+    private function replaceDotByZeroInGrid(): void
+    {
+        $this->grid = str_replace('.', '0', $this->grid);
     }
 }
