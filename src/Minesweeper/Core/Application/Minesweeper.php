@@ -7,21 +7,27 @@ use App\Minesweeper\Core\Domain\Cell;
 
 class Minesweeper
 {
-    public function __invoke(string $grid): string
+    public function __construct(
+        private string $grid
+    ) {
+    }
+
+    public function handle(): string
     {
-        $grid = str_replace('.', '0', $grid);
-        $firstRow = str_split($grid);
+        $this->grid = str_replace('.', '0', $this->grid);
+        $firstRow = str_split($this->grid);
+
         $cells = $this->getCells($firstRow);
 
-        if ($grid === '0*') {
-            $grid = $this->increaseCellContent($cells[0]->value) . $this->increaseCellContent($cells[1]->value);
+        if ($this->grid === '0*') {
+            $this->grid = $this->increaseCellContent($cells[0]->value) . $this->increaseCellContent($cells[1]->value);
         }
 
-        if ($grid === '*0') {
-            $grid = $this->increaseCellContent($cells[0]->value) . $this->increaseCellContent($cells[1]->value);
+        if ($this->grid === '*0') {
+            $this->grid = $this->increaseCellContent($cells[0]->value) . $this->increaseCellContent($cells[1]->value);
         }
 
-        return $grid;
+        return $this->grid;
     }
 
     private function increaseCellContent(string|int $cellValue): string|int

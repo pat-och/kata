@@ -14,7 +14,7 @@ class MinesweeperTest extends TestCase
 
     protected function setUp(): void
     {
-        $this->minesweeper = new Minesweeper();
+
     }
 
     /**
@@ -44,7 +44,8 @@ class MinesweeperTest extends TestCase
 
     private function resolve(string $grid): string
     {
-        return ($this->minesweeper)($grid);
+        $this->minesweeper = new Minesweeper($grid);
+        return $this->minesweeper->handle();
     }
 }
 
