@@ -17,10 +17,9 @@ class Minesweeper
 
     public function handle(): string
     {
-        $this->replaceDotByZeroInGrid();
-        $firstRow = str_split($this->grid);
+        $this->replaceDotByZeroInGridAsString();
 
-        $this->cells = $this->buildCells($firstRow);
+        $this->cells = $this->buildCells();
 
         if ($this->grid === '0*') {
             $this->grid = $this->increaseCellContent(0) . $this->increaseCellContent(1);
@@ -97,8 +96,9 @@ class Minesweeper
         return $cell->value + 1;
     }
 
-    private function buildCells(array $row): array
+    private function buildCells(): array
     {
+        $row = str_split($this->grid);
         $cells = [];
 
         foreach ($row as $rowIndex => $cellValue) {
@@ -108,7 +108,7 @@ class Minesweeper
         return $cells;
     }
 
-    private function replaceDotByZeroInGrid(): void
+    private function replaceDotByZeroInGridAsString(): void
     {
         $this->grid = str_replace('.', '0', $this->grid);
     }
