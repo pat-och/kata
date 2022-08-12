@@ -6,8 +6,8 @@ namespace App\Minesweeper\Core\Domain;
 class Cell
 {
     public function __construct(
-        public mixed $value,
-        private int $rowIndex
+        public readonly mixed $value,
+        public readonly int $rowIndex
     ) {
     }
 
