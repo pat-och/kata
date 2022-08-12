@@ -7,6 +7,9 @@ use App\Minesweeper\Core\Domain\Cell;
 
 class Minesweeper
 {
+    /** @var Cell[]  */
+    private array $cells;
+
     public function __construct(
         private string $grid
     ) {
@@ -17,75 +20,77 @@ class Minesweeper
         $this->grid = str_replace('.', '0', $this->grid);
         $firstRow = str_split($this->grid);
 
-        $cells = $this->buildCells($firstRow);
+        $this->cells = $this->buildCells($firstRow);
 
         if ($this->grid === '0*') {
-            $this->grid = $this->increaseCellContent($cells[0]) . $this->increaseCellContent($cells[1]);
+            $this->grid = $this->increaseCellContent(0) . $this->increaseCellContent(1);
         }
 
         if ($this->grid === '*0') {
-            $this->grid = $this->increaseCellContent($cells[0]) . $this->increaseCellContent($cells[1]);
+            $this->grid = $this->increaseCellContent(0) . $this->increaseCellContent(1);
         }
 
         if ($this->grid === '*00') {
             $this->grid = sprintf(
                 '%s%s%s',
-                $this->increaseCellContent($cells[0]),
-                $this->increaseCellContent($cells[1]),
-                $cells[1]->value === '*' ? $this->increaseCellContent($cells[2]) : $cells[2]->value
+                $this->increaseCellContent(0),
+                $this->increaseCellContent(1),
+                $this->cells[1]->value === '*' ? $this->increaseCellContent(2) : $this->cells[2]->value
             );
         }
 
         if ($this->grid === '00*') {
             $this->grid = sprintf(
                 '%s%s%s',
-                $cells[1]->value === '*' ? $this->increaseCellContent($cells[0]) : $cells[0]->value,
-                $this->increaseCellContent($cells[1]),
-                $this->increaseCellContent($cells[2])
+                $this->cells[1]->value === '*' ? $this->increaseCellContent(0) : $this->cells[0]->value,
+                $this->increaseCellContent(1),
+                $this->increaseCellContent(2)
             );
         }
 
         if ($this->grid === '0*0') {
             $this->grid = sprintf(
                 '%s%s%s',
-                $cells[1]->value === '*' ? $this->increaseCellContent($cells[0]) : $cells[0]->value,
-                $this->increaseCellContent($cells[1]),
-                $cells[1]->value === '*' ? $this->increaseCellContent($cells[2]) : $cells[2]->value
+                $this->cells[1]->value === '*' ? $this->increaseCellContent(0) : $this->cells[0]->value,
+                $this->increaseCellContent(1),
+                $this->cells[1]->value === '*' ? $this->increaseCellContent(2) : $this->cells[2]->value
             );
         }
 
         if ($this->grid === '**0') {
             $this->grid = sprintf(
                 '%s%s%s',
-                $this->increaseCellContent($cells[0]),
-                $this->increaseCellContent($cells[1]),
-                $cells[1]->value === '*' ? $this->increaseCellContent($cells[2]) : $cells[2]->value
+                $this->increaseCellContent(0),
+                $this->increaseCellContent(1),
+                $this->cells[1]->value === '*' ? $this->increaseCellContent(2) : $this->cells[2]->value
             );
         }
 
         if ($this->grid === '0**') {
             $this->grid = sprintf(
                 '%s%s%s',
-                $this->increaseCellContent($cells[0]),
-                $this->increaseCellContent($cells[1]),
-                $cells[1]->value === '*' ? $this->increaseCellContent($cells[2]) : $cells[2]->value
+                $this->increaseCellContent(0),
+                $this->increaseCellContent(1),
+                $this->cells[1]->value === '*' ? $this->increaseCellContent(2) : $this->cells[2]->value
             );
         }
 
         if ($this->grid === '*0*') {
             $this->grid = sprintf(
                 '%s%s%s',
-                $this->increaseCellContent($cells[0]),
-                ($cells[0]->value === '*' && $cells[2]->value === '*') ? 2 : $cells[2]->value,
-                $cells[1]->value === '*' ? $this->increaseCellContent($cells[2]) : $cells[2]->value
+                $this->increaseCellContent(0),
+                ($this->cells[0]->value === '*' && $this->cells[2]->value === '*') ? 2 : $this->cells[2]->value,
+                $this->cells[1]->value === '*' ? $this->increaseCellContent(2) : $this->cells[2]->value
             );
         }
 
         return $this->grid;
     }
 
-    private function increaseCellContent(Cell $cell): string|int
+    private function increaseCellContent(int $cellIndex): string|int
     {
+        $cell = $this->cells[$cellIndex];
+
         if ($cell->value === '*')
             return $cell->value;
 
