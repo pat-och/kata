@@ -32,14 +32,14 @@ class Minesweeper
                 '%s%s%s',
                 $this->increaseCellContent(0),
                 $this->increaseCellContent(1),
-                $this->cells[1]->value === '*' ? $this->increaseCellContent(2) : $this->cells[2]->value
+                $this->cells[1]->isMine() ? $this->increaseCellContent(2) : $this->cells[2]->value
             );
         }
 
         if ($this->grid === '00*') {
             return sprintf(
                 '%s%s%s',
-                $this->cells[1]->value === '*' ? $this->increaseCellContent(0) : $this->cells[0]->value,
+                $this->cells[1]->isMine() ? $this->increaseCellContent(0) : $this->cells[0]->value,
                 $this->increaseCellContent(1),
                 $this->increaseCellContent(2)
             );
@@ -48,9 +48,9 @@ class Minesweeper
         if ($this->grid === '0*0') {
             return sprintf(
                 '%s%s%s',
-                $this->cells[1]->value === '*' ? $this->increaseCellContent(0) : $this->cells[0]->value,
+                $this->cells[1]->isMine() ? $this->increaseCellContent(0) : $this->cells[0]->value,
                 $this->increaseCellContent(1),
-                $this->cells[1]->value === '*' ? $this->increaseCellContent(2) : $this->cells[2]->value
+                $this->cells[1]->isMine() ? $this->increaseCellContent(2) : $this->cells[2]->value
             );
         }
 
@@ -59,7 +59,7 @@ class Minesweeper
                 '%s%s%s',
                 $this->increaseCellContent(0),
                 $this->increaseCellContent(1),
-                $this->cells[1]->value === '*' ? $this->increaseCellContent(2) : $this->cells[2]->value
+                $this->cells[1]->isMine() ? $this->increaseCellContent(2) : $this->cells[2]->value
             );
         }
 
@@ -68,7 +68,7 @@ class Minesweeper
                 '%s%s%s',
                 $this->increaseCellContent(0),
                 $this->increaseCellContent(1),
-                $this->cells[1]->value === '*' ? $this->increaseCellContent(2) : $this->cells[2]->value
+                $this->cells[1]->isMine() ? $this->increaseCellContent(2) : $this->cells[2]->value
             );
         }
 
@@ -76,8 +76,8 @@ class Minesweeper
             return sprintf(
                 '%s%s%s',
                 $this->increaseCellContent(0),
-                ($this->cells[0]->value === '*' && $this->cells[2]->value === '*') ? 2 : $this->cells[2]->value,
-                $this->cells[1]->value === '*' ? $this->increaseCellContent(2) : $this->cells[2]->value
+                ($this->cells[0]->isMine() && $this->cells[2]->isMine()) ? 2 : $this->cells[2]->value,
+                $this->cells[1]->isMine() ? $this->increaseCellContent(2) : $this->cells[2]->value
             );
         }
 
