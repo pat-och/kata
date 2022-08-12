@@ -35,10 +35,19 @@ class MinesweeperTest extends TestCase
             ['no cells', '', ''],
             ['one cell with mine', '*', '*'],
             ['one empty cell', '.', '0'],
+            //
             ['one row of two cells full of mines', '**', '**'],
             ['one row of two empty cells', '..', '00'],
             ['one row of two cells with mine in the first one', '*.', '*1'],
             ['one row of two cells with mine in the last one', '.*', '1*'],
+            //
+            ['one row of three cells with mine  at first', '*..', '*10'],
+            ['one row of three cells with mine in the last one', '..*', '01*'],
+            ['one row of three cells with mine in the middle', '.*.', '1*1'],
+            ['one row of three cells with two mines at first', '**.', '**1'],
+            ['one row of three cells with two mines at least', '.**', '1**'],
+            ['one row of three cells full of mines', '***', '***'],
+            ['one row of three cells with two mines on borders', '*.*', '*2*'],
         ];
     }
 
