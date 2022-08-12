@@ -20,15 +20,15 @@ class Minesweeper
     public function handle(): string
     {
         if ($this->grid === '0*') {
-            $this->grid = $this->increaseCellContent(0) . $this->increaseCellContent(1);
+            return $this->increaseCellContent(0) . $this->increaseCellContent(1);
         }
 
         if ($this->grid === '*0') {
-            $this->grid = $this->increaseCellContent(0) . $this->increaseCellContent(1);
+            return $this->increaseCellContent(0) . $this->increaseCellContent(1);
         }
 
         if ($this->grid === '*00') {
-            $this->grid = sprintf(
+            return sprintf(
                 '%s%s%s',
                 $this->increaseCellContent(0),
                 $this->increaseCellContent(1),
@@ -37,7 +37,7 @@ class Minesweeper
         }
 
         if ($this->grid === '00*') {
-            $this->grid = sprintf(
+            return sprintf(
                 '%s%s%s',
                 $this->cells[1]->value === '*' ? $this->increaseCellContent(0) : $this->cells[0]->value,
                 $this->increaseCellContent(1),
@@ -46,7 +46,7 @@ class Minesweeper
         }
 
         if ($this->grid === '0*0') {
-            $this->grid = sprintf(
+            return sprintf(
                 '%s%s%s',
                 $this->cells[1]->value === '*' ? $this->increaseCellContent(0) : $this->cells[0]->value,
                 $this->increaseCellContent(1),
@@ -55,7 +55,7 @@ class Minesweeper
         }
 
         if ($this->grid === '**0') {
-            $this->grid = sprintf(
+            return sprintf(
                 '%s%s%s',
                 $this->increaseCellContent(0),
                 $this->increaseCellContent(1),
@@ -64,7 +64,7 @@ class Minesweeper
         }
 
         if ($this->grid === '0**') {
-            $this->grid = sprintf(
+            return sprintf(
                 '%s%s%s',
                 $this->increaseCellContent(0),
                 $this->increaseCellContent(1),
@@ -73,7 +73,7 @@ class Minesweeper
         }
 
         if ($this->grid === '*0*') {
-            $this->grid = sprintf(
+            return sprintf(
                 '%s%s%s',
                 $this->increaseCellContent(0),
                 ($this->cells[0]->value === '*' && $this->cells[2]->value === '*') ? 2 : $this->cells[2]->value,
@@ -97,6 +97,7 @@ class Minesweeper
     private function buildCells(): void
     {
         $row = str_split($this->grid);
+
         foreach ($row as $rowIndex => $cellValue) {
             $this->cells[] = new Cell($cellValue, $rowIndex);
         }
