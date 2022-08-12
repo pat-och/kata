@@ -17,7 +17,7 @@ class Minesweeper
         $this->grid = str_replace('.', '0', $this->grid);
         $firstRow = str_split($this->grid);
 
-        $cells = $this->getCells($firstRow);
+        $cells = $this->buildCells($firstRow);
 
         if ($this->grid === '0*') {
             $this->grid = $this->increaseCellContent($cells[0]->value) . $this->increaseCellContent($cells[1]->value);
@@ -36,7 +36,7 @@ class Minesweeper
         return $cellValue + 1;
     }
 
-    private function getCells(array $row): array
+    private function buildCells(array $row): array
     {
         $cells = [];
 
