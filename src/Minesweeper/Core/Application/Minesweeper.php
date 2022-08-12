@@ -8,19 +8,17 @@ use App\Minesweeper\Core\Domain\Cell;
 class Minesweeper
 {
     /** @var Cell[]  */
-    private array $cells;
+    private array $cells = [];
 
     public function __construct(
         private string $grid
     ) {
+        $this->replaceDotByZeroInGridAsString();
+        $this->buildCells();
     }
 
     public function handle(): string
     {
-        $this->replaceDotByZeroInGridAsString();
-
-        $this->cells = $this->buildCells();
-
         if ($this->grid === '0*') {
             $this->grid = $this->increaseCellContent(0) . $this->increaseCellContent(1);
         }
@@ -96,16 +94,12 @@ class Minesweeper
         return $cell->value + 1;
     }
 
-    private function buildCells(): array
+    private function buildCells(): void
     {
         $row = str_split($this->grid);
-        $cells = [];
-
         foreach ($row as $rowIndex => $cellValue) {
-            $cells[] = new Cell($cellValue, $rowIndex);
+            $this->cells[] = new Cell($cellValue, $rowIndex);
         }
-
-        return $cells;
     }
 
     private function replaceDotByZeroInGridAsString(): void
