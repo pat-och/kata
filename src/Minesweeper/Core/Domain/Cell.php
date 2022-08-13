@@ -21,4 +21,9 @@ class Cell
         ++$this->value;
     }
 
+    public function isNotMine(): bool
+    {
+        return !$this->isMine();
+    }
+
 }

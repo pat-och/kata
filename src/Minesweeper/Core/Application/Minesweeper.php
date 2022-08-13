@@ -97,10 +97,8 @@ class Minesweeper
 
     private function increaseCellContent(int $cellIndex): string|int
     {
-        if ($this->cells[$cellIndex]->isMine())
-            return $this->cells[$cellIndex]->value;
-
-        $this->cells[$cellIndex]->increase();
+        if ($this->cells[$cellIndex]->isNotMine())
+            $this->cells[$cellIndex]->increase();
 
         return $this->cells[$cellIndex]->value;
     }
