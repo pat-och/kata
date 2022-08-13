@@ -24,11 +24,19 @@ class Minesweeper
     public function handle(): string
     {
         if ($this->stringSchemeGrid === '0*') {
-            return $this->increaseCellContent(0) . $this->increaseCellContent(1);
+            return sprintf(
+                '%s%s',
+                $this->board->hasMineAtRight(0) ? $this->increaseCellContent(0) : $this->cells[0]->value,
+                $this->board->cell(0)->isMine() ? $this->increaseCellContent(1) : $this->cells[1]->value
+            );
         }
 
         if ($this->stringSchemeGrid === '*0') {
-            return $this->increaseCellContent(0) . $this->increaseCellContent(1);
+            return sprintf(
+                '%s%s',
+                $this->board->hasMineAtRight(0) ? $this->increaseCellContent(0) : $this->cells[0]->value,
+                $this->board->cell(0)->isMine() ? $this->increaseCellContent(1) : $this->cells[1]->value
+            );
         }
 
         if ($this->stringSchemeGrid === '*00') {
