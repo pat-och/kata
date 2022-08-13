@@ -22,6 +22,9 @@ class Board
 
     public function hasMineAtRight(int $i): bool
     {
+        if (!array_key_exists($i + 1, $this->cells))
+            return false;
+
         return $this->cells[$i + 1]->isMine();
     }
 }

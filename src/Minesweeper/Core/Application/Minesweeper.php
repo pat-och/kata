@@ -25,23 +25,23 @@ class Minesweeper
         if ($this->stringSchemeGrid === '0*') {
             return sprintf(
                 '%s%s',
-                $this->board->hasMineAtRight(0) ? $this->increaseCellContent(0) : $this->increaseCellContent(0),
-                $this->board->cell(0)->isMine() ? $this->increaseCellContent(1) : $this->cells[1]->value
+                $this->increaseCellContent(0),
+                $this->increaseCellContent(1)
             );
         }
 
         if ($this->stringSchemeGrid === '*0') {
             return sprintf(
                 '%s%s',
-                $this->board->hasMineAtRight(0) ? $this->increaseCellContent(0) : $this->increaseCellContent(0),
-                $this->board->cell(0)->isMine() ? $this->increaseCellContent(1) : $this->cells[1]->value
+                $this->increaseCellContent(0),
+                $this->increaseCellContent(1)
             );
         }
 
         if ($this->stringSchemeGrid === '*00') {
             return sprintf(
                 '%s%s%s',
-                $this->board->hasMineAtRight(0) ? $this->increaseCellContent(0) : $this->cells[0]->value,
+                $this->increaseCellContent(0),
                 $this->increaseCellContent(1),
                 $this->board->cell(1)->isMine() ? $this->increaseCellContent(2) : $this->cells[2]->value
             );
