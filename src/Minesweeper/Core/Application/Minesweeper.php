@@ -4,6 +4,7 @@
 namespace App\Minesweeper\Core\Application;
 
 use App\Minesweeper\Core\Domain\Cell;
+use JetBrains\PhpStorm\Pure;
 
 class Minesweeper
 {
@@ -15,9 +16,8 @@ class Minesweeper
         private string $stringSchemeGrid
     ) {
         $this->replaceDotByZeroInGridAsString();
-        $this->buildCells();
-
-        $this->board = new Board(...$this->cells);
+        $cells = $this->buildCells();
+        $this->board = new Board(...$cells);
     }
 
     public function handle(): string
@@ -105,13 +105,18 @@ class Minesweeper
         return $cell->value + 1;
     }
 
-    private function buildCells(): void
+    /**
+     * @return Cell[]
+     */
+    private function buildCells(): array
     {
         $row = str_split($this->stringSchemeGrid);
 
         foreach ($row as $rowIndex => $cellValue) {
             $this->cells[] = new Cell($cellValue, $rowIndex);
         }
+
+        return $this->cells;
     }
 
     private function replaceDotByZeroInGridAsString(): void
