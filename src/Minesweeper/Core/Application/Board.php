@@ -10,7 +10,7 @@ class Board
     /** @var Cell[] */
     private array $cells = [];
 
-    public function addCells(Cell ...$cells): void
+    public function __construct(Cell ...$cells)
     {
         $this->cells = $cells;
     }

@@ -17,8 +17,7 @@ class Minesweeper
         $this->replaceDotByZeroInGridAsString();
         $this->buildCells();
 
-        $this->board = new Board();
-        $this->board->addCells(...$this->cells);
+        $this->board = new Board(...$this->cells);
     }
 
     public function handle(): string
