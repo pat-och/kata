@@ -25,7 +25,7 @@ class Minesweeper
         if ($this->stringSchemeGrid === '0*') {
             return sprintf(
                 '%s%s',
-                $this->board->hasMineAtRight(0) ? $this->increaseCellContent(0) : $this->cells[0]->value,
+                $this->board->hasMineAtRight(0) ? $this->increaseCellContent(0) : $this->increaseCellContent(0),
                 $this->board->cell(0)->isMine() ? $this->increaseCellContent(1) : $this->cells[1]->value
             );
         }
@@ -33,7 +33,7 @@ class Minesweeper
         if ($this->stringSchemeGrid === '*0') {
             return sprintf(
                 '%s%s',
-                $this->board->hasMineAtRight(0) ? $this->increaseCellContent(0) : $this->cells[0]->value,
+                $this->board->hasMineAtRight(0) ? $this->increaseCellContent(0) : $this->increaseCellContent(0),
                 $this->board->cell(0)->isMine() ? $this->increaseCellContent(1) : $this->cells[1]->value
             );
         }
