@@ -100,7 +100,9 @@ class Minesweeper
         if ($this->cells[$cellIndex]->isMine())
             return $this->cells[$cellIndex]->value;
 
-        return $this->cells[$cellIndex]->value + 1;
+        $this->cells[$cellIndex]->increase();
+
+        return $this->cells[$cellIndex]->value;
     }
 
     /**
