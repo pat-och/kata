@@ -19,4 +19,9 @@ class Board
     {
         return $this->cells[$i];
     }
+
+    public function hasMineAtRight(int $i): bool
+    {
+        return $this->cells[$i + 1]->isMine();
+    }
 }

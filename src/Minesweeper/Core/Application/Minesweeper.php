@@ -34,7 +34,7 @@ class Minesweeper
         if ($this->stringSchemeGrid === '*00') {
             return sprintf(
                 '%s%s%s',
-                $this->increaseCellContent(0),
+                $this->board->hasMineAtRight(0) ? $this->increaseCellContent(0) : $this->cells[0]->value,
                 $this->increaseCellContent(1),
                 $this->board->cell(1)->isMine() ? $this->increaseCellContent(2) : $this->cells[2]->value
             );

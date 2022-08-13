@@ -15,4 +15,5 @@ class Cell
     {
         return $this->value === '*';
     }
+
 }
