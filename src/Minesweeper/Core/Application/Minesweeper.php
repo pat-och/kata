@@ -95,12 +95,13 @@ class Minesweeper
         return $this->stringSchemeGrid;
     }
 
-    private function increaseCellContent(int $cellIndex): string|int
+    private function increaseCellContent(int $i): string|int
     {
-        if ($this->cells[$cellIndex]->isNotMine())
-            $this->cells[$cellIndex]->increase();
+        if ($this->cells[$i]->isNotMine()) {
+            $this->cells[$i]->increase();
+        }
 
-        return $this->cells[$cellIndex]->value;
+        return $this->cells[$i]->value;
     }
 
     /**
