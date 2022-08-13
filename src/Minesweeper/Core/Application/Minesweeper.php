@@ -9,25 +9,29 @@ class Minesweeper
 {
     /** @var Cell[]  */
     private array $cells = [];
+    private Board $board;
 
     public function __construct(
-        private string $grid
+        private string $stringSchemeGrid
     ) {
         $this->replaceDotByZeroInGridAsString();
         $this->buildCells();
+
+        $this->board = new Board();
+        $this->board->addCells(...$this->cells);
     }
 
     public function handle(): string
     {
-        if ($this->grid === '0*') {
+        if ($this->stringSchemeGrid === '0*') {
             return $this->increaseCellContent(0) . $this->increaseCellContent(1);
         }
 
-        if ($this->grid === '*0') {
+        if ($this->stringSchemeGrid === '*0') {
             return $this->increaseCellContent(0) . $this->increaseCellContent(1);
         }
 
-        if ($this->grid === '*00') {
+        if ($this->stringSchemeGrid === '*00') {
             return sprintf(
                 '%s%s%s',
                 $this->increaseCellContent(0),
@@ -36,7 +40,7 @@ class Minesweeper
             );
         }
 
-        if ($this->grid === '00*') {
+        if ($this->stringSchemeGrid === '00*') {
             return sprintf(
                 '%s%s%s',
                 $this->cells[1]->isMine() ? $this->increaseCellContent(0) : $this->cells[0]->value,
@@ -45,7 +49,7 @@ class Minesweeper
             );
         }
 
-        if ($this->grid === '0*0') {
+        if ($this->stringSchemeGrid === '0*0') {
             return sprintf(
                 '%s%s%s',
                 $this->cells[1]->isMine() ? $this->increaseCellContent(0) : $this->cells[0]->value,
@@ -54,7 +58,7 @@ class Minesweeper
             );
         }
 
-        if ($this->grid === '**0') {
+        if ($this->stringSchemeGrid === '**0') {
             return sprintf(
                 '%s%s%s',
                 $this->cells[1]->isMine() ? $this->increaseCellContent(0) : $this->cells[0]->value,
@@ -63,7 +67,7 @@ class Minesweeper
             );
         }
 
-        if ($this->grid === '0**') {
+        if ($this->stringSchemeGrid === '0**') {
             return sprintf(
                 '%s%s%s',
                 $this->cells[1]->isMine() ? $this->increaseCellContent(0) : $this->cells[0]->value,
@@ -72,16 +76,16 @@ class Minesweeper
             );
         }
 
-        if ($this->grid === '*0*') {
+        if ($this->stringSchemeGrid === '*0*') {
             return sprintf(
                 '%s%s%s',
-                $this->cells[1]->isMine() ? $this->increaseCellContent(0) : $this->cells[0]->value,
+                $this->board->cell(1)->isMine() ? $this->increaseCellContent(0) : $this->cells[0]->value,
                 ($this->cells[0]->isMine() && $this->cells[2]->isMine()) ? 2 : $this->cells[1]->value,
                 $this->cells[1]->isMine() ? $this->increaseCellContent(2) : $this->cells[2]->value
             );
         }
 
-        return $this->grid;
+        return $this->stringSchemeGrid;
     }
 
     private function increaseCellContent(int $cellIndex): string|int
@@ -96,7 +100,7 @@ class Minesweeper
 
     private function buildCells(): void
     {
-        $row = str_split($this->grid);
+        $row = str_split($this->stringSchemeGrid);
 
         foreach ($row as $rowIndex => $cellValue) {
             $this->cells[] = new Cell($cellValue, $rowIndex);
@@ -105,6 +109,6 @@ class Minesweeper
 
     private function replaceDotByZeroInGridAsString(): void
     {
-        $this->grid = str_replace('.', '0', $this->grid);
+        $this->stringSchemeGrid = str_replace('.', '0', $this->stringSchemeGrid);
     }
 }
