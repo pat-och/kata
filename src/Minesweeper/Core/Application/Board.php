@@ -50,20 +50,20 @@ class Board
 
     private function increaseLeftAndRightEmptyCells(Cell $cell): void
     {
-        $this->increaseEmptyRightCell($cell);
-        $this->increaseEmptyLeftCell($cell);
+        $this->increaseEmptyRightCell($cell, Direction::RIGHT);
+        $this->increaseEmptyLeftCell($cell, Direction::LEFT);
     }
 
-    private function increaseEmptyRightCell(Cell $cell): void
+    private function increaseEmptyRightCell(Cell $cell, Direction $direction): void
     {
-        if (array_key_exists($cell->column + Direction::RIGHT->getColumnModifier(), $this->cells))
-            $this->cells[$cell->column + Direction::RIGHT->getColumnModifier()]->increase();
+        if (array_key_exists($cell->column + $direction->getColumnModifier(), $this->cells))
+            $this->cells[$cell->column + $direction->getColumnModifier()]->increase();
     }
 
-    private function increaseEmptyLeftCell(Cell $cell): void
+    private function increaseEmptyLeftCell(Cell $cell, Direction $direction): void
     {
-        if (array_key_exists($cell->column + Direction::LEFT->getColumnModifier(), $this->cells)) {
-            $this->cells[$cell->column + Direction::LEFT->getColumnModifier()]->increase();
+        if (array_key_exists($cell->column + $direction->getColumnModifier(), $this->cells)) {
+            $this->cells[$cell->column + $direction->getColumnModifier()]->increase();
         }
     }
 
