@@ -36,10 +36,8 @@ class Board
 
     private function resolve(): void
     {
-        foreach($this->rows as $row => $rowAsString) {
-            for ($column = 0; $column < strlen($this->grid); ++$column) {
-                $this->increaseNearbyCellsIfCellIsMine($row, $column);
-            }
+        foreach($this->cells as $cell) {
+            $this->increaseNearbyCellsIfCellIsMine($cell->row, $cell->column);
         }
     }
 
