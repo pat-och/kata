@@ -37,32 +37,33 @@ class Board
     private function resolve(): void
     {
         foreach($this->cells as $cell) {
-            $this->increaseNearbyCellsIfCellIsMine($cell->row, $cell->column);
+            $this->increaseNearbyCellsIfCellIsMine($cell);
         }
     }
 
-    private function increaseNearbyCellsIfCellIsMine(int $row, int $column): void
+    private function increaseNearbyCellsIfCellIsMine(Cell $cell): void
     {
-        if ($this->cells[$column]->isEmpty()) return;
-        $this->increaseLeftAndRightEmptyCells($row, $column);
+        if ($cell->isEmpty()) return;
+        $this->increaseLeftAndRightEmptyCells($cell);
     }
 
-    private function increaseLeftAndRightEmptyCells(int $row, int $column): void
+    private function increaseLeftAndRightEmptyCells(Cell $cell): void
     {
-        $this->increaseEmptyRightCell($row, $column);
-        $this->increaseEmptyLeftCell($row, $column);
+        $this->increaseEmptyRightCell($cell);
+        $this->increaseEmptyLeftCell($cell);
     }
 
-    private function increaseEmptyRightCell(int $row, int $column): void
+    private function increaseEmptyRightCell(Cell $cell): void
     {
-        if (array_key_exists($column + 1, $this->cells))
-            $this->cells[$column + 1]->increase();
+        if (array_key_exists($cell->column + 1, $this->cells))
+            $this->cells[$cell->column + 1]->increase();
     }
 
-    private function increaseEmptyLeftCell(int $row, int $column): void
+    private function increaseEmptyLeftCell(Cell $cell): void
     {
-        if (array_key_exists($column - 1, $this->cells))
-            $this->cells[$column - 1]->increase();
+        if (array_key_exists($cell->column - 1, $this->cells)) {
+            $this->cells[$cell->column - 1]->increase();
+        }
     }
 
     public function getSolvedGrid(): string
