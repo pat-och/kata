@@ -14,9 +14,6 @@ class Board
     /** @var Cell[] */
     private array $cells = [];
 
-    /** @var string[] */
-    private array $rows;
-
     public function __construct(
         private string $grid,
     ) {
@@ -26,11 +23,11 @@ class Board
 
     private function buildCells(): void
     {
-        $this->rows = explode(self::ROW_SEPARATOR, $this->grid);
+        $rows = explode(self::ROW_SEPARATOR, $this->grid);
 
-        foreach ($this->rows as $row => $rowAsString) {
+        foreach ($rows as $row => $rowAsString) {
             foreach (str_split($rowAsString) as $column => $value) {
-                $inverseRow = count($this->rows) - $row;
+                $inverseRow = count($rows) - 1 - $row;
                 $this->cells[] = new Cell($value, $inverseRow, $column);
             }
         }
@@ -69,7 +66,23 @@ class Board
     public function getSolvedGrid(): string
     {
         if ($this->grid === '.\n.') {
-            return '0' . self::ROW_SEPARATOR . '0';
+
+            foreach ($this->cells as $cell) {
+                if ($cell->row === 0) {
+                    $rowZero[] = $cell;
+                }
+            }
+
+            $cellsAsString = array_map(
+                fn(Cell $cell) => (string) $cell,
+                $this->cells
+            );
+
+            $solvedGrid = implode(
+                $cellsAsString
+            );
+
+            return $solvedGrid[0] . self::ROW_SEPARATOR . $solvedGrid[1];
         }
 
         $cellsAsString = array_map(
