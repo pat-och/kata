@@ -23,27 +23,6 @@ class Board
         $this->resolve();
     }
 
-    public function cell(int $column): Cell
-    {
-        return $this->cells[$column];
-    }
-
-    public function getSolvedGrid(): string
-    {
-        return implode(
-            array_map(
-                fn (Cell $cell) => (string) $cell,
-                $this->cells
-            )
-        );
-    }
-
-    /** @return Cell[] */
-    public function cells(): array
-    {
-        return $this->cells;
-    }
-
     /** @return Cell[] */
     private function buildCells(): void
     {
@@ -56,9 +35,21 @@ class Board
         }
     }
 
+    private function resolve(): void
+    {
+        for ($column = 0; $column < strlen($this->grid); ++$column) {
+            $this->increaseNearbyCellsIfCellIsMine($column);
+        }
+    }
+
     private function increaseNearbyCellsIfCellIsMine(int $column): void
     {
         if ($this->cells[$column]->isEmpty()) return;
+        $this->increaseLeftAndRightEmptyCells($column);
+    }
+
+    private function increaseLeftAndRightEmptyCells(int $column): void
+    {
         $this->increaseEmptyRightCell($column);
         $this->increaseEmptyLeftCell($column);
     }
@@ -75,10 +66,13 @@ class Board
             $this->cells[$column - 1]->increase();
     }
 
-    private function resolve(): void
+    public function getSolvedGrid(): string
     {
-        for ($column = 0; $column < strlen($this->grid); ++$column) {
-            $this->increaseNearbyCellsIfCellIsMine($column);
-        }
+        return implode(
+            array_map(
+                fn (Cell $cell) => (string) $cell,
+                $this->cells
+            )
+        );
     }
 }
