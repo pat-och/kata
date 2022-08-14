@@ -9,7 +9,7 @@ class Board
 {
     /** @var string */
     const ROW_SEPARATOR = '\n';
-    
+
     /** @var Cell[] */
     private array $cells = [];
 
@@ -45,7 +45,7 @@ class Board
     }
 
     /** @return Cell[] */
-    private function buildCells(): array
+    private function buildCells(): void
     {
         $rows = explode(self::ROW_SEPARATOR, $this->grid);
 
@@ -54,8 +54,6 @@ class Board
                 $this->cells[] = new Cell($value, $row, $column);
             }
         }
-
-        return $this->cells;
     }
 
     private function increaseNearbyCellsIfCellIsMine(int $column): void
