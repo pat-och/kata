@@ -22,86 +22,17 @@ class Minesweeper
 
     public function handle(): string
     {
-        if ($this->stringSchemeGrid === '0*') {
-            return sprintf(
-                '%s%s',
-                $this->increaseCellContent(0),
-                $this->increaseCellContent(1)
-            );
+        for ($i = 0; $i < strlen($this->stringSchemeGrid); ++$i) {
+            $this->increaseNearbyCellsIfCellIsMine($i);
         }
-
-        if ($this->stringSchemeGrid === '*0') {
-            return sprintf(
-                '%s%s',
-                $this->increaseCellContent(0),
-                $this->increaseCellContent(1)
-            );
-        }
-
-        if ($this->stringSchemeGrid === '*00') {
-            return sprintf(
-                '%s%s%s',
-                $this->increaseCellContent(0),
-                $this->increaseCellContent(1),
-                $this->board->cell(1)->isMine() ? $this->increaseCellContent(2) : $this->cells[2]->value
-            );
-        }
-
-        if ($this->stringSchemeGrid === '00*') {
-            return sprintf(
-                '%s%s%s',
-                $this->board->hasMineAtRight(0) ? $this->increaseCellContent(0) : $this->cells[0]->value,
-                $this->increaseCellContent(1),
-                $this->increaseCellContent(2)
-            );
-        }
-
-        if ($this->stringSchemeGrid === '0*0') {
-            return sprintf(
-                '%s%s%s',
-                $this->board->hasMineAtRight(0) ? $this->increaseCellContent(0) : $this->cells[0]->value,
-                $this->increaseCellContent(1),
-                $this->board->cell(1)->isMine() ? $this->increaseCellContent(2) : $this->cells[2]->value
-            );
-        }
-
-        if ($this->stringSchemeGrid === '**0') {
-            return sprintf(
-                '%s%s%s',
-                $this->board->hasMineAtRight(0) ? $this->increaseCellContent(0) : $this->cells[0]->value,
-                ($this->board->cell(0)->isMine() && $this->board->hasMineAtRight(1)) ? 2 : $this->cells[1]->value,
-                $this->board->cell(1)->isMine() ? $this->increaseCellContent(2) : $this->cells[2]->value
-            );
-        }
-
-        if ($this->stringSchemeGrid === '0**') {
-            return sprintf(
-                '%s%s%s',
-                $this->board->hasMineAtRight(0) ? $this->increaseCellContent(0) : $this->cells[0]->value,
-                ($this->board->cell(0)->isMine() && $this->board->hasMineAtRight(1)) ? 2 : $this->cells[1]->value,
-                $this->board->cell(1)->isMine() ? $this->increaseCellContent(2) : $this->cells[2]->value
-            );
-        }
-
-        if ($this->stringSchemeGrid === '*0*') {
-            return sprintf(
-                '%s%s%s',
-                $this->board->hasMineAtRight(0) ? $this->increaseCellContent(0) : $this->cells[0]->value,
-                ($this->board->cell(0)->isMine() && $this->board->hasMineAtRight(1)) ? 2 : $this->cells[1]->value,
-                $this->board->cell(1)->isMine() ? $this->increaseCellContent(2) : $this->cells[2]->value
-            );
-        }
-
-        return $this->stringSchemeGrid;
+        return $this->board->solved();
     }
 
-    private function increaseCellContent(int $i): string|int
+    private function increaseNearbyCellsIfCellIsMine(int $column): void
     {
-        if ($this->cells[$i]->isNotMine()) {
-            $this->cells[$i]->increase();
-        }
-
-        return $this->cells[$i]->value;
+        if ($this->cells[$column]->isEmpty()) return;
+        $this->increaseEmptyRightCell($column);
+        $this->increaseEmptyLeftCell($column);
     }
 
     /**
@@ -121,5 +52,17 @@ class Minesweeper
     private function replaceDotByZeroInGridAsString(): void
     {
         $this->stringSchemeGrid = str_replace('.', '0', $this->stringSchemeGrid);
+    }
+
+    private function increaseEmptyRightCell(int $column): void
+    {
+        if (array_key_exists($column + 1, $this->cells) && $this->cells[$column + 1]->isEmpty())
+            $this->cells[$column + 1]->increase();
+    }
+
+    private function increaseEmptyLeftCell(int $column): void
+    {
+        if (array_key_exists($column - 1, $this->cells) && $this->cells[$column - 1]->isEmpty())
+            $this->cells[$column - 1]->increase();
     }
 }

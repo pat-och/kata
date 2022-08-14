@@ -22,9 +22,23 @@ class Board
 
     public function hasMineAtRight(int $i): bool
     {
-        if (!array_key_exists($i + 1, $this->cells))
-            return false;
+        if (array_key_exists($i + 1, $this->cells)) {
+            return $this->cells[$i + 1]->isMine();
+        }
 
-        return $this->cells[$i + 1]->isMine();
+        return false;
+    }
+
+    public function hasMineAtLeft(int $i): bool
+    {
+        return $this->cells[$i - 1]->isMine();
+    }
+
+    public function solved(): string
+    {
+        return implode(array_map(
+            fn (Cell $cell) => (string) $cell,
+            $this->cells
+        ));
     }
 }

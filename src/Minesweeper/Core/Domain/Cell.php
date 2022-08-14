@@ -21,9 +21,14 @@ class Cell
         ++$this->value;
     }
 
-    public function isNotMine(): bool
+    public function isEmpty(): bool
     {
         return !$this->isMine();
+    }
+
+    public function __toString(): string
+    {
+        return (string) $this->value;
     }
 
 }
