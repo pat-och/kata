@@ -16,9 +16,6 @@ class Board
     public function __construct(
         private string $grid,
     ) {
-        $this->replaceDotByZeroInGridAsString();
-        $this->rows = explode('\n', $this->grid);
-
         $this->buildCells();
         $this->resolve();
     }
@@ -47,18 +44,15 @@ class Board
     /** @return Cell[] */
     private function buildCells(): array
     {
-        foreach ($this->rows as $row => $rowAsString) {
+        $rows = explode('\n', $this->grid);
+
+        foreach ($rows as $row => $rowAsString) {
             foreach (str_split($rowAsString) as $column => $value) {
                 $this->cells[] = new Cell($value, $row, $column);
             }
         }
 
         return $this->cells;
-    }
-
-    private function replaceDotByZeroInGridAsString(): void
-    {
-        $this->grid = str_replace('.', '0', $this->grid);
     }
 
     private function increaseNearbyCellsIfCellIsMine(int $column): void
