@@ -6,7 +6,7 @@ namespace App\Minesweeper\Core\Domain;
 class Cell
 {
     public function __construct(
-        public mixed $value,
+        public int|string $value,
         public readonly int $rowIndex
     ) {
     }
@@ -16,19 +16,18 @@ class Cell
         return $this->value === '*';
     }
 
-    public function increase(): void
-    {
-        ++$this->value;
-    }
-
     public function isEmpty(): bool
     {
         return !$this->isMine();
+    }
+
+    public function increase(): void
+    {
+        if ($this->isEmpty()) ++$this->value;
     }
 
     public function __toString(): string
     {
         return (string) $this->value;
     }
-
 }

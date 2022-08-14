@@ -67,13 +67,13 @@ class Board
 
     private function increaseEmptyRightCell(int $column): void
     {
-        if (array_key_exists($column + 1, $this->cells) && $this->cells[$column + 1]->isEmpty())
+        if (array_key_exists($column + 1, $this->cells))
             $this->cells[$column + 1]->increase();
     }
 
     private function increaseEmptyLeftCell(int $column): void
     {
-        if (array_key_exists($column - 1, $this->cells) && $this->cells[$column - 1]->isEmpty())
+        if (array_key_exists($column - 1, $this->cells))
             $this->cells[$column - 1]->increase();
     }
 }
