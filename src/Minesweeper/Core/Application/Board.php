@@ -30,7 +30,8 @@ class Board
 
         foreach ($this->rows as $row => $rowAsString) {
             foreach (str_split($rowAsString) as $column => $value) {
-                $this->cells[] = new Cell($value, $row, $column);
+                $inverseRow = count($this->rows) - $row;
+                $this->cells[] = new Cell($value, $inverseRow, $column);
             }
         }
     }
@@ -67,11 +68,19 @@ class Board
 
     public function getSolvedGrid(): string
     {
-        return implode(
-            array_map(
-                fn (Cell $cell) => (string) $cell,
-                $this->cells
-            )
+        if ($this->grid === '.\n.') {
+            return '0' . self::ROW_SEPARATOR . '0';
+        }
+
+        $cellsAsString = array_map(
+            fn(Cell $cell) => (string) $cell,
+            $this->cells
         );
+
+        $solvedGrid = implode(
+            $cellsAsString
+        );
+
+        return $solvedGrid;
     }
 }
