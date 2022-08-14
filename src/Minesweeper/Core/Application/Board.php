@@ -10,13 +10,19 @@ class Board
     /** @var Cell[] */
     private array $cells = [];
 
+    /** @var string[] */
+    private array $rows;
+
     public function __construct(
         private string $grid,
     ) {
         $this->replaceDotByZeroInGridAsString();
+
+        $this->rows = explode('\n', $this->grid);
         $this->buildCells();
-        for ($i = 0; $i < strlen($grid); ++$i) {
-            $this->increaseNearbyCellsIfCellIsMine($i);
+
+        for ($column = 0; $column < strlen($grid); ++$column) {
+            $this->increaseNearbyCellsIfCellIsMine($column);
         }
     }
 
@@ -44,10 +50,10 @@ class Board
     /** @return Cell[] */
     private function buildCells(): array
     {
-        $row = str_split($this->grid);
-
-        foreach ($row as $rowIndex => $cellValue) {
-            $this->cells[] = new Cell($cellValue, $rowIndex);
+        foreach ($this->rows as $row => $rowAsString) {
+            foreach (str_split($rowAsString) as $column => $value) {
+                $this->cells[] = new Cell($value, $row, $column);
+            }
         }
 
         return $this->cells;

@@ -51,6 +51,9 @@ class MinesweeperTest extends TestCase
             //
             ['one row of four empty cells ', '....', '0000'],
             ['one row of four cells with full of mines', '****', '****'],
+            //
+//            ['two rows of one empty cell', '.\n.', '0\n0'],
+//            ['two rows of one cell with mine at top', '*\n.', '*\n1'],
         ];
     }
 

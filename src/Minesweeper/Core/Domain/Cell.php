@@ -5,20 +5,24 @@ namespace App\Minesweeper\Core\Domain;
 
 class Cell
 {
+    /** @var string */
+    const MINE = '*';
+
     public function __construct(
         public int|string $value,
+        public readonly int $row,
         public readonly int $column
     ) {
     }
 
-    public function isMine(): bool
+    public function hasMine(): bool
     {
-        return $this->value === '*';
+        return $this->value === self::MINE;
     }
 
     public function isEmpty(): bool
     {
-        return !$this->isMine();
+        return !$this->hasMine();
     }
 
     public function increase(): void
