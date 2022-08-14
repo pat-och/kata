@@ -17,13 +17,10 @@ class Board
         private string $grid,
     ) {
         $this->replaceDotByZeroInGridAsString();
-
         $this->rows = explode('\n', $this->grid);
-        $this->buildCells();
 
-        for ($column = 0; $column < strlen($grid); ++$column) {
-            $this->increaseNearbyCellsIfCellIsMine($column);
-        }
+        $this->buildCells();
+        $this->resolve();
     }
 
     public function cell(int $column): Cell
@@ -81,5 +78,12 @@ class Board
     {
         if (array_key_exists($column - 1, $this->cells))
             $this->cells[$column - 1]->increase();
+    }
+
+    private function resolve(): void
+    {
+        for ($column = 0; $column < strlen($this->grid); ++$column) {
+            $this->increaseNearbyCellsIfCellIsMine($column);
+        }
     }
 }
