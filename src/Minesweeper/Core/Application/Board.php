@@ -20,9 +20,9 @@ class Board
         }
     }
 
-    public function cell(int $i): Cell
+    public function cell(int $column): Cell
     {
-        return $this->cells[$i];
+        return $this->cells[$column];
     }
 
     public function getSolvedGrid(): string

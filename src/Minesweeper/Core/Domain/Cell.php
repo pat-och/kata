@@ -7,7 +7,7 @@ class Cell
 {
     public function __construct(
         public int|string $value,
-        public readonly int $rowIndex
+        public readonly int $column
     ) {
     }
 
