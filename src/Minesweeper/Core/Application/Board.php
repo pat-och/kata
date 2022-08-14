@@ -66,29 +66,14 @@ class Board
     public function getSolvedGrid(): string
     {
         if ($this->grid === '.\n.') {
-
-            foreach ($this->cells as $cell) {
-                if ($cell->row === 0) {
-                    $rowZero[] = $cell;
-                }
-            }
-
-            $cellsAsString = array_map(
-                fn(Cell $cell) => (string) $cell,
-                $this->cells
-            );
-
-            $solvedGrid = implode(
-                $cellsAsString
-            );
-
-            return $solvedGrid[0] . self::ROW_SEPARATOR . $solvedGrid[1];
+            return $this->cells[0]->value . self::ROW_SEPARATOR . $this->cells[1]->value;
         }
 
         $cellsAsString = array_map(
             fn(Cell $cell) => (string) $cell,
             $this->cells
         );
+
 
         $solvedGrid = implode(
             $cellsAsString
