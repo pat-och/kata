@@ -10,9 +10,14 @@ class Board
     /** @var Cell[] */
     private array $cells = [];
 
-    public function __construct(Cell ...$cells)
-    {
-        $this->cells = $cells;
+    public function __construct(
+        private string $grid,
+    ) {
+        $this->replaceDotByZeroInGridAsString();
+        $this->buildCells();
+        for ($i = 0; $i < strlen($grid); ++$i) {
+            $this->increaseNearbyCellsIfCellIsMine($i);
+        }
     }
 
     public function cell(int $i): Cell
@@ -20,25 +25,55 @@ class Board
         return $this->cells[$i];
     }
 
-    public function hasMineAtRight(int $i): bool
+    public function getSolvedGrid(): string
     {
-        if (array_key_exists($i + 1, $this->cells)) {
-            return $this->cells[$i + 1]->isMine();
+        return implode(
+            array_map(
+                fn (Cell $cell) => (string) $cell,
+                $this->cells
+            )
+        );
+    }
+
+    /** @return Cell[] */
+    public function cells(): array
+    {
+        return $this->cells;
+    }
+
+    /** @return Cell[] */
+    private function buildCells(): array
+    {
+        $row = str_split($this->grid);
+
+        foreach ($row as $rowIndex => $cellValue) {
+            $this->cells[] = new Cell($cellValue, $rowIndex);
         }
 
-        return false;
+        return $this->cells;
     }
 
-    public function hasMineAtLeft(int $i): bool
+    private function replaceDotByZeroInGridAsString(): void
     {
-        return $this->cells[$i - 1]->isMine();
+        $this->grid = str_replace('.', '0', $this->grid);
     }
 
-    public function solved(): string
+    private function increaseNearbyCellsIfCellIsMine(int $column): void
     {
-        return implode(array_map(
-            fn (Cell $cell) => (string) $cell,
-            $this->cells
-        ));
+        if ($this->cells[$column]->isEmpty()) return;
+        $this->increaseEmptyRightCell($column);
+        $this->increaseEmptyLeftCell($column);
+    }
+
+    private function increaseEmptyRightCell(int $column): void
+    {
+        if (array_key_exists($column + 1, $this->cells) && $this->cells[$column + 1]->isEmpty())
+            $this->cells[$column + 1]->increase();
+    }
+
+    private function increaseEmptyLeftCell(int $column): void
+    {
+        if (array_key_exists($column - 1, $this->cells) && $this->cells[$column - 1]->isEmpty())
+            $this->cells[$column - 1]->increase();
     }
 }
