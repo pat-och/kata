@@ -25,9 +25,9 @@ class Board
 
     private function buildCells(): void
     {
-        $rows = explode(self::ROW_SEPARATOR, $this->grid);
+        $this->rows = explode(self::ROW_SEPARATOR, $this->grid);
 
-        foreach ($rows as $row => $rowAsString) {
+        foreach ($this->rows as $row => $rowAsString) {
             foreach (str_split($rowAsString) as $column => $value) {
                 $this->cells[] = new Cell($value, $row, $column);
             }
