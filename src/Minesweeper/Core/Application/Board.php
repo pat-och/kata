@@ -44,23 +44,21 @@ class Board
 
     private function increaseNearbyCellsIfCellIsMine(Cell $cell): void
     {
-        if ($cell->isEmpty()) return;
-        $this->increaseLeftAndRightEmptyCells($cell);
+        if ($cell->isEmpty()) {
+            return;
+        }
+
+        $this->increaseEmptyCellsForeachDirections($cell);
     }
 
-    private function increaseLeftAndRightEmptyCells(Cell $cell): void
+    private function increaseEmptyCellsForeachDirections(Cell $cell): void
     {
-        $this->increaseEmptyRightCell($cell, Direction::RIGHT);
-        $this->increaseEmptyLeftCell($cell, Direction::LEFT);
+        foreach (Direction::cases() as $direction) {
+            $this->increaseEmptyNearbyCellInGivenDirection($cell, $direction);
+        }
     }
 
-    private function increaseEmptyRightCell(Cell $cell, Direction $direction): void
-    {
-        if (array_key_exists($cell->column + $direction->getColumnModifier(), $this->cells))
-            $this->cells[$cell->column + $direction->getColumnModifier()]->increase();
-    }
-
-    private function increaseEmptyLeftCell(Cell $cell, Direction $direction): void
+    private function increaseEmptyNearbyCellInGivenDirection(Cell $cell, Direction $direction): void
     {
         if (array_key_exists($cell->column + $direction->getColumnModifier(), $this->cells)) {
             $this->cells[$cell->column + $direction->getColumnModifier()]->increase();
