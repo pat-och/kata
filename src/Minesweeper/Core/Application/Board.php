@@ -23,7 +23,6 @@ class Board
         $this->resolve();
     }
 
-    /** @return Cell[] */
     private function buildCells(): void
     {
         $rows = explode(self::ROW_SEPARATOR, $this->grid);
