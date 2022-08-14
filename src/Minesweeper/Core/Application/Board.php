@@ -7,6 +7,9 @@ use App\Minesweeper\Core\Domain\Cell;
 
 class Board
 {
+    /** @var string */
+    const ROW_SEPARATOR = '\n';
+    
     /** @var Cell[] */
     private array $cells = [];
 
@@ -44,7 +47,7 @@ class Board
     /** @return Cell[] */
     private function buildCells(): array
     {
-        $rows = explode('\n', $this->grid);
+        $rows = explode(self::ROW_SEPARATOR, $this->grid);
 
         foreach ($rows as $row => $rowAsString) {
             foreach (str_split($rowAsString) as $column => $value) {
