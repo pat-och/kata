@@ -8,7 +8,7 @@ enum Direction: string
     case RIGHT = '1';
     case LEFT = '-1';
 
-    public function getValue(): int
+    public function getColumnModifier(): int
     {
         return (int) $this->value;
     }
