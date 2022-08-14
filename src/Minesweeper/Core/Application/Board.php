@@ -4,6 +4,7 @@
 namespace App\Minesweeper\Core\Application;
 
 use App\Minesweeper\Core\Domain\Cell;
+use App\Minesweeper\Core\Domain\Direction;
 
 class Board
 {
@@ -55,13 +56,13 @@ class Board
 
     private function increaseEmptyRightCell(Cell $cell): void
     {
-        if (array_key_exists($cell->column + 1, $this->cells))
+        if (array_key_exists($cell->column + Direction::RIGHT->getValue(), $this->cells))
             $this->cells[$cell->column + 1]->increase();
     }
 
     private function increaseEmptyLeftCell(Cell $cell): void
     {
-        if (array_key_exists($cell->column - 1, $this->cells)) {
+        if (array_key_exists($cell->column + Direction::LEFT->getValue(), $this->cells)) {
             $this->cells[$cell->column - 1]->increase();
         }
     }
