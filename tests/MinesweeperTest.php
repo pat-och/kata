@@ -12,11 +12,6 @@ class MinesweeperTest extends TestCase
 {
     private Minesweeper $minesweeper;
 
-    protected function setUp(): void
-    {
-
-    }
-
     /**
      * @test
      * @dataProvider cases
