@@ -27,8 +27,7 @@ class Board
 
         foreach ($rows as $row => $rowAsString) {
             foreach (str_split($rowAsString) as $column => $value) {
-                $inverseRow = count($rows) - 1 - $row;
-                $this->cells[] = new Cell($value, $inverseRow, $column);
+                $this->cells[] = new Cell($value, $row, $column);
             }
         }
     }
