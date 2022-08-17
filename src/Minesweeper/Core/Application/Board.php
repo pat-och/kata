@@ -22,6 +22,19 @@ class Board
         $this->computeNumberOfNearbyMinesForeachEmptyCell();
     }
 
+    public function __toString(): string
+    {
+        $computedGrid = '';
+
+        $rows = $this->getRows();
+        foreach ($rows as $i => $row) {
+            if ($i > 0) $computedGrid .= self::ROW_SEPARATOR;
+            $computedGrid .= implode($row);
+        }
+
+        return $computedGrid;
+    }
+
     private function buildCells(): void
     {
         $rows = explode(self::ROW_SEPARATOR, $this->grid);
@@ -62,19 +75,6 @@ class Board
         if (array_key_exists($cell->column + $direction->getColumnModifier(), $this->cells)) {
             $this->cells[$cell->column + $direction->getColumnModifier()]->increase();
         }
-    }
-
-    public function getComputedGrid(): string
-    {
-        $computedGrid = '';
-
-        $rows = $this->getRows();
-        foreach ($rows as $i => $row) {
-            if ($i > 0) $computedGrid .= self::ROW_SEPARATOR;
-            $computedGrid .= implode($row);
-        }
-
-        return $computedGrid;
     }
 
     private function getRows(): array

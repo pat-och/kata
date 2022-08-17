@@ -55,7 +55,7 @@ class MinesweeperTest extends TestCase
     private function resolve(string $grid): string
     {
         $this->minesweeper = new Minesweeper($grid);
-        return $this->minesweeper->getRevealedGrid();
+        return $this->minesweeper->getRevealedBoard();
     }
 }
 
