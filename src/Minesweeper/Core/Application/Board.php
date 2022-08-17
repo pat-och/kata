@@ -13,17 +13,19 @@ class Board
 
     /** @var Cell[] */
     private array $cells = [];
+    private int $numberOfRows;
 
     public function __construct(
         private string $grid,
     ) {
         $this->buildCells();
-        $this->resolve();
+        $this->computeNumberOfNearbyMinesForeachEmptyCell();
     }
 
     private function buildCells(): void
     {
         $rows = explode(self::ROW_SEPARATOR, $this->grid);
+        $this->numberOfRows = count($rows);
 
         foreach ($rows as $row => $rowAsString) {
             foreach (str_split($rowAsString) as $column => $value) {
@@ -32,7 +34,7 @@ class Board
         }
     }
 
-    private function resolve(): void
+    private function computeNumberOfNearbyMinesForeachEmptyCell(): void
     {
         foreach($this->cells as $cell) {
             $this->increaseNearbyCellsIfCellIsMine($cell);
@@ -62,22 +64,35 @@ class Board
         }
     }
 
-    public function getSolvedGrid(): string
+    public function getComputedGrid(): string
     {
-        if ($this->grid === '.\n.') {
-            return $this->cells[0]->value . self::ROW_SEPARATOR . $this->cells[1]->value;
+        $computedGrid = '';
+
+        $rows = $this->getRows();
+        foreach ($rows as $i => $row) {
+            if ($i > 0) $computedGrid .= self::ROW_SEPARATOR;
+            $computedGrid .= implode($row);
         }
 
-        $cellsAsString = array_map(
-            fn(Cell $cell) => (string) $cell,
-            $this->cells
+        return $computedGrid;
+    }
+
+    private function getRows(): array
+    {
+        $rows = [];
+        for ($i = 0; $i < $this->numberOfRows; $i++) {
+            $rows[] = $this->getRow($i);
+        }
+
+        return $rows;
+    }
+
+    /** @return Cell[] */
+    private function getRow(int $index): array
+    {
+        return array_filter(
+            $this->cells,
+            fn (Cell $cell) => $cell->row === $index
         );
-
-
-        $solvedGrid = implode(
-            $cellsAsString
-        );
-
-        return $solvedGrid;
     }
 }

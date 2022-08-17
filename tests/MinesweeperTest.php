@@ -45,7 +45,7 @@ class MinesweeperTest extends TestCase
             ['one row of three cells with two mines on borders', '*.*', '*2*'],
             //
             ['one row of four empty cells ', '....', '0000'],
-            ['one row of four cells with full of mines', '****', '****'],
+            ['one row of four cells full of mines', '****', '****'],
             //
             ['two rows of one empty cell', '.\n.', '0\n0'],
 //            ['two rows of one cell with mine at top', '*\n.', '*\n1'],
@@ -55,7 +55,7 @@ class MinesweeperTest extends TestCase
     private function resolve(string $grid): string
     {
         $this->minesweeper = new Minesweeper($grid);
-        return $this->minesweeper->getSolvedGrid();
+        return $this->minesweeper->getRevealedGrid();
     }
 }
 

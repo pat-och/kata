@@ -14,8 +14,8 @@ class Minesweeper
         $this->board = new Board($stringSchemeGrid);
     }
 
-    public function getSolvedGrid(): string
+    public function getRevealedGrid(): string
     {
-        return $this->board->getSolvedGrid();
+        return $this->board->getComputedGrid();
     }
 }
